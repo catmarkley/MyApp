@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Login Page</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("#resultSuccess").hide();
+			$("#resultError").hide();
+			$("#create_user").click(function() {
+				var usermodel = {
+					first_name : document.getElementById('first_name').value,
+					last_name : document.getElementById('last_name').value,
+					username : document.getElementById('username').value,
+					password : document.getElementById('password').value
+				};
+				var requestJSON = JSON.stringify(usermodel);
+				$.ajax({
+					type : "POST",
+					url : "http://localhost:8080/user/create",
+					headers : {
+						"Content-Type" : "application/json"
+					},
+					data : requestJSON,
+					success : function(data) {
+						$("#resultSuccess").show();
+						$("#resultError").hide();
+						console.log(data);
+					},
+					error : function(data) {
+						$("#resultError").show();
+						$("#resultSuccess").hide();
+						console.log(data);
+					}
+				});
+			});
+		});
+	 </script>
+</head>
+<body>
+
+<div>Create User Page</div>
+
+<table>
+	<tr>
+		<td>First Name:</td>
+		<td><input type='text' id='first_name' required/></td>
+	</tr>
+	<tr>
+		<td>Last Name:</td>
+		<td><input type='text' id='last_name'/></td>
+	</tr>
+	<tr>
+		<td>Username:</td>
+		<td><input type='text' id='username' required/></td>
+	</tr>
+	<tr>
+		<td>Password:</td>
+		<td><input type='password' id='password' required/></td>
+		</tr>
+	<tr>
+		<td><button id="create_user">Create</button></td>
+	</tr>
+</table>
+
+<p id='resultSuccess'>User Created Successfully!</p>
+
+<p id='resultError'> Error creating user.</p>
+
+
+<a href='http://localhost:8080/login'>Already have an account? Login here.</a>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Login Page</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			
+		});
+	 </script>
+</head>
+<body>
+
+<div>Login Page</div>
+
+<form name='f' action="/login" method='POST'>
+	<table>
+	   <tr>
+		  <td>Username:</td>
+		  <td><input type='text' name='username' value=''></td>
+	   </tr>
+	   <tr>
+		  <td>Password:</td>
+		  <td><input type='password' name='password' /></td>
+	   </tr>
+	   <tr>
+		  <td><input name="submit" type="submit" value="submit" /></td>
+	   </tr>
+	</table>
+</form>
+
+<div th:if="${param.error}">
+	Invalid username and password.
+</div>
+<div th:if="${param.logout}">
+	You have been logged out.
+</div>
+
+<a href='http://localhost:8080/register'>Don't have an account? Create one here.</a>
+
+</body>
+</html>
