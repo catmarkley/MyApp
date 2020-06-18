@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>My Cookbook</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+					type : "GET",
+					url : "http://localhost:8080/entry",
+					headers : {
+						"Content-Type" : "application/json"
+					},
+					success : function(dataTotal) {
+                        $.each(dataTotal, function (i, data) {
+                            var entry = '';
+                            entry += 'Entry ID: ' + data["id"] + '<br>';
+                            entry += 'Entry Comments: ' + data["comments"] + '<br>';
+                            entry += 'Entry Category: ' + data["category"] + '<br>';
+                            entry += 'Recipe Name: ' + data["recipe"]["name"] + '<br>';
+                            entry += 'Recipe Instructions: ' + data["recipe"]["instructions"] + '<br>';
+                            entry += 'Recipe Yield: ' + data["recipe"]["yield"] + '<br>';
+
+                            entry += 'Ingredients: <br>';
+                            var ingredients = data["recipe"]["ingredients"];
+                            $.each(ingredients, function (j, item) {
+                                entry += '<ul> Ingredient Food: ' + ingredients[j]["food"];
+                                entry += '<li>Ingredient Amount: ' + ingredients[j]["amount"] + '</li>';
+                                entry += '<li>Ingredient Unit: ' + ingredients[j]["unit"] + '</li>';
+                                entry += '</ul>';
+                            });
+
+                            entry += 'Photos: <br>';
+                            entry += '<ul>';
+                            var photos = data["photos"]
+                            $.each(photos, function (j, item) {
+                                entry += '<img src="' + photos[j]["url"] + '" height="200">';
+                            });
+                            entry += '</ul>';
+                            $('#entry').append(entry);
+                        });
+					},
+					error : function(data) {
+						console.log(data);
+					}
+				});
+
+            $("#addNewEntry").click(function() {
+                var entryModel = {
+                    name : document.getElementById('recipeName').value,
+                    instructions : document.getElementById('recipeInstructions').value,
+                    yield : document.getElementById('recipeYield').value,
+                    comments : document.getElementById('entryComments').value,
+                    collection : $(".collection:checked").val(),
+                    category : document.getElementById('entryCategory').value
+                };
+                var requestJSON = JSON.stringify(entryModel);
+
+                console.log('request data:\n'); 
+                console.log(requestJSON);
+
+                $.ajax({
+                        type : "POST",
+                        url : "http://localhost:8080/entry",
+                        headers : {
+                            "Content-Type" : "application/json"
+                        },
+                        data: requestJSON,
+                        success : function(data) {
+                            console.log(data);
+                        },
+                        error : function(data) {
+                            console.log(data);
+                        }
+                    });
+                });
+		});
+    </script>
+</head>
+<body>
+Hi
+
+<form action="http://localhost:8080/logout">
+    <button>Logout</button>
+</form>
+
+<br><br><br><br>
+
+<div id="entry"></div>
+
+
+<br><br><br><br>
+
+
+<p>Add a new entry:</p>
+<table>
+	<tr>
+		<td>Name (of recipe):</td>
+		<td><input type='text' id='recipeName' required/></td>
+    </tr>
+    <tr>
+		<td>Instructions:</td>
+		<td><input type='text' id='recipeInstructions' required/></td>
+    </tr>
+    <tr>
+		<td>Yield:</td>
+		<td><input type='number' id='recipeYield' required/></td>
+    </tr>
+    <tr>
+		<td>Comments:</td>
+		<td><input type='text' id='entryComments' required/></td>
+    </tr>
+    <tr>
+		<td>Collection Type:<br></td>
+        <td><label for="entryCollection1">My Cookbook</label><input type='radio' id='entryCollection1' class="collection" name="collection" value="myCookbook"/></td><br>
+        <td><label for="entryCollection2">My Interests</label><input type='radio' id='entryCollection2' class="collection" name="collection" value="myInterests"/></td><br>
+        <td><label for="entryCollection3">My Dislikes</label><input type='radio' id='entryCollection3' class="collection" name="collection" value="myDislikes"/></td><br>
+    </tr>
+    <tr>
+		<td>Category:</td>
+		<td><input type='text' id='entryCategory' required/></td>
+    </tr>
+    <tr>
+		<td><button id="addNewEntry">Add New Entry</button></td>
+	</tr>
+</table>
+
+</body>
+</html>
