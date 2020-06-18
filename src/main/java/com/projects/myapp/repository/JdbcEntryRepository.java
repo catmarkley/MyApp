@@ -1,5 +1,6 @@
 package com.projects.myapp.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,13 +89,13 @@ public class JdbcEntryRepository implements EntryRepository {
 	}
 
 	@Override
-    public Optional<Entry> findById(long id) {
+    public Entry findById(long id) {
 		String queryString = "";
 		queryString = queryString + "select entry.ID, entry.RecipeID, entry.Comments, entry.CollectionType, entry.Category, entry.UserID, ";
 		queryString = queryString + "recipe.Name, recipe.Instructions, recipe.Yield ";
 		queryString = queryString + "from entry, recipe where entry.id = ? and entry.RecipeID = recipe.ID";
 
-        return jdbcTemplate.queryForObject(
+        Optional<Entry> result = jdbcTemplate.queryForObject(
 				queryString,
                 new Object[]{id},
                 (rs, rowNum) ->
@@ -111,7 +112,18 @@ public class JdbcEntryRepository implements EntryRepository {
 								rs.getString("entry.Category"),
 								rs.getLong("entry.UserID")
                         ))
-        );
+		);
+		
+		if(result.isPresent()){
+			Entry entry = result.get();
+			List<Entry> entries = new ArrayList<Entry>();
+			entries.add(entry);
+			getIngredientsForRecipe(entries);
+			getPhotosForRecipe(entries);
+			return entries.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	@Override

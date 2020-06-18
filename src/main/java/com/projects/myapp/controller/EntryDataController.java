@@ -1,11 +1,8 @@
 package com.projects.myapp.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.projects.myapp.Entry;
-import com.projects.myapp.Ingredient;
-import com.projects.myapp.Photo;
 import com.projects.myapp.Recipe;
 import com.projects.myapp.repository.EntryRepository;
 import com.projects.myapp.repository.IngredientRepository;
@@ -31,10 +28,6 @@ public class EntryDataController {
 	@Autowired
 	private EntryRepository entryRepository;
 	@Autowired
-	private PhotoRepository photoRepository;
-	@Autowired
-	private IngredientRepository ingredientRepository;
-	@Autowired
 	private RecipeRepository recipeRepository;
 	@Autowired
 	private UserRepository userRepository;
@@ -50,17 +43,8 @@ public class EntryDataController {
 	@RequestMapping(value = "/entry/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Entry getEntryById(@PathVariable("id") long id) throws ParseException {
-		Optional<Entry> result = entryRepository.findById(id);
-		if(result.isPresent()){
-			Entry entry = result.get();
-			List<Photo> photos = photoRepository.findByEntry(entry.getId());
-			List<Ingredient> ingredients = ingredientRepository.findByRecipe(entry.getRecipe().getId());
-			entry.setPhotos(photos);
-			entry.getRecipe().setIngredients(ingredients);
-			return entry;
-		} else {
-			return null;
-		}
+		Entry result = entryRepository.findById(id);
+		return result;
 	}
 	
 	@RequestMapping(value = "/entry/collection/{collectionType}", method = RequestMethod.GET)

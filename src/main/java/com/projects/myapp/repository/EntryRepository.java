@@ -14,7 +14,7 @@ public interface EntryRepository {
 
 	List<Entry> findAll(long userId);
 
-	Optional<Entry> findById(long id);
+	Entry findById(long id);
 
 	List<Entry> findByCollection(long userId, String collectionType);
 
