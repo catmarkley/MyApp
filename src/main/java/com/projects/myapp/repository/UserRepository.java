@@ -13,7 +13,19 @@ public interface UserRepository {
 
     int saveRole(String username);
 
-	int deleteById(Long id);
+    int deleteById(Long id);
+    
+    int disable(String username);
+
+    int enable(String username);
+
+    int changePassword(String username, String password);
+
+    int changeFirstName(String username, String firstName);
+
+    int changeLastName(String username, String lastName);
+
+    int changeRole(String username, String role);
 
     List<User> findAll();
 
@@ -24,5 +36,7 @@ public interface UserRepository {
     Optional<User> findById(Long id);
 
     String getUsernameById(Long id);
+
+    long getIdByUsername(String username);
 
 }

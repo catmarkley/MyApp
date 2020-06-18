@@ -37,22 +37,65 @@ public class JdbcUserRepository implements UserRepository{
     @Override
     public int deleteById(Long id) {
         return jdbcTemplate.update(
-                "delete user where id = ?",
+                "delete from user where id = ?",
                 id);
+    }
+
+    @Override
+    public int disable(String username){
+        return jdbcTemplate.update(
+                "update user set Enabled = 0 where Username = ?",
+                username);
+    }
+
+    @Override
+    public int enable(String username){
+        return jdbcTemplate.update(
+                "update user set Enabled = 1 where Username = ?",
+                username);
+    }
+
+    @Override
+    public int changePassword(String username, String password){
+        return jdbcTemplate.update(
+            "update user set Password = ? where Username = ?",
+            password, username);
+    }
+
+    @Override
+    public int changeFirstName(String username, String firstName){
+        return jdbcTemplate.update(
+            "update user set FirstName = ? where Username = ?",
+            firstName, username);
+    }
+
+    @Override
+    public int changeLastName(String username, String lastName){
+        return jdbcTemplate.update(
+            "update user set LastName = ? where Username = ?",
+            lastName, username);
+    }
+
+    @Override
+    public int changeRole(String username, String role){
+        return jdbcTemplate.update(
+            "update Authority set Authority = ? where Username = ?",
+            role, username);
     }
 
     @Override
     public List<User> findAll() {
         return jdbcTemplate.query(
-                "select * from user",
+                "select ID, LastName, FirstName, User.Username, Password, Enabled, Authority from User left join Authority on User.Username = Authority.Username",
                 (rs, rowNum) ->
                         new User(
                                 rs.getLong("ID"),
 								rs.getString("FirstName"),
 								rs.getString("LastName"),
-								rs.getString("Username"),
+								rs.getString("User.Username"),
                                 rs.getString("Password"),
-                                rs.getBoolean("Enabled")
+                                rs.getBoolean("Enabled"),
+                                rs.getString("Authority")
                         )
         );
 	}
@@ -114,6 +157,15 @@ public class JdbcUserRepository implements UserRepository{
                 "select Username from user where id = ?",
                 new Object[]{id},
                 String.class
+        );
+    }
+
+    @Override
+    public long getIdByUsername(String username){
+        return jdbcTemplate.queryForObject(
+            "select id from user where username = ?",
+            new Object[]{username},
+            Long.class
         );
     }
 
