@@ -1,4 +1,4 @@
-package com.projects.myapp;
+package com.projects.myapp.objects;
 
 public class User {
 
