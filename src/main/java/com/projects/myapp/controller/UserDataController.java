@@ -2,7 +2,7 @@ package com.projects.myapp.controller;
 
 import java.util.List;
 
-import com.projects.myapp.User;
+import com.projects.myapp.objects.User;
 import com.projects.myapp.repository.UserRepository;
 
 import org.json.simple.JSONObject;

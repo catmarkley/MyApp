@@ -2,8 +2,10 @@ package com.projects.myapp.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ViewController {
@@ -13,6 +15,27 @@ public class ViewController {
 	@RequestMapping("/")
 	public String indexPage() {
 		return "index";
+	}
+
+	// Will get rid of this, it is the cs template example I used
+	@RequestMapping("/testpage")
+	public String testpage(){
+		return "Page-2";
+	}
+
+	@RequestMapping("/home")
+	public String home(){
+		return "home";
+	}
+
+	@RequestMapping("/mycookbook")
+	public String mycookbook(){
+		return "mycookbook";
+	}
+
+	@RequestMapping("/new")
+	public String new_entry(){
+		return "new_entry";
 	}
 
 	@RequestMapping("/login")
@@ -42,8 +65,17 @@ public class ViewController {
 		return "/auth/user_management";
 	}
 
-	@RequestMapping("/mycookbook")
-	public String myCookbook(){
-		return "mycookbook.html";
+	@RequestMapping("/recipe/{id}")
+	public ModelAndView toRecipe(@PathVariable("id") long id){
+		ModelAndView modelAndView = new ModelAndView("recipe");
+		modelAndView.addObject("EntryID", id);
+		return modelAndView;
+	}
+
+	@RequestMapping("/edit/{id}")
+	public ModelAndView toEditRecipe(@PathVariable("id") long id){
+		ModelAndView modelAndView = new ModelAndView("edit_recipe");
+		modelAndView.addObject("EntryID", id);
+		return modelAndView;
 	}
 }
