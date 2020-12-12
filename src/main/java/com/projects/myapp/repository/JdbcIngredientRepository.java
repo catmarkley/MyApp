@@ -2,7 +2,7 @@ package com.projects.myapp.repository;
 
 import java.util.List;
 
-import com.projects.myapp.Ingredient;
+import com.projects.myapp.objects.Ingredient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,10 +30,10 @@ public class JdbcIngredientRepository implements IngredientRepository{
 	}
 
 	@Override
-	public int saveIngredient(String food, String unit, Float amount, Long recipeId){
+	public int saveIngredient(Ingredient ingredient){
 		return jdbcTemplate.update(
             "insert into Ingredient (Food, Unit, Amount, RecipeID) values (?, ?, ?, ?)", 
-            food, unit, amount, recipeId);
+            ingredient.getFood(), ingredient.getUnit(), ingredient.getAmount(), ingredient.getRecipeId());
 	}
 
 	@Override
@@ -41,6 +41,13 @@ public class JdbcIngredientRepository implements IngredientRepository{
 		return jdbcTemplate.update(
 			"delete from Ingredient where id = ?",
 			id);
+	}
+
+	@Override
+	public int deleteIngredients(Long recipeID){
+		return jdbcTemplate.update(
+			"delete from Ingredient where RecipeID = ?",
+			recipeID);
 	}
 
 	@Override

@@ -1,14 +1,15 @@
 package com.projects.myapp.repository;
 
 import java.util.List;
-import java.util.Optional;
 
-import com.projects.myapp.Entry;
+import com.projects.myapp.objects.Entry;
 
 public interface EntryRepository {
 	int count(long userId);
 
-	int saveEntry(Entry entry);
+	long saveEntry(Entry entry);
+
+	long updateEntry(Entry entry);
 	
 	int deleteById(long id); // deletes all child information (recipe, ingredient, photo)
 

@@ -1,16 +1,22 @@
 package com.projects.myapp.repository;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.projects.myapp.Entry;
-import com.projects.myapp.Ingredient;
-import com.projects.myapp.Photo;
-import com.projects.myapp.Recipe;
+import com.projects.myapp.objects.Entry;
+import com.projects.myapp.objects.Ingredient;
+import com.projects.myapp.objects.Photo;
+import com.projects.myapp.objects.Recipe;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -28,27 +34,79 @@ public class JdbcEntryRepository implements EntryRepository {
 	}
 
 	@Override
-	public int saveEntry(Entry entry){
-		return jdbcTemplate.update(
-			"insert into entry (RecipeID, Comments, CollectionType, UserID, Category) values(?, ?, ?, ?, ?)",
-			entry.getRecipe().getId(), entry.getComments(), entry.getType(), entry.getUserId(), entry.getCategory());
+	public long saveEntry(Entry entry){
+
+		GeneratedKeyHolder holder = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement statement = con.prepareStatement("insert into entry (RecipeID, Comments, CollectionType, UserID, Category) values(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+				statement.setLong(1, entry.getRecipe().getId());
+				statement.setString(2, entry.getComments());
+				statement.setString(3, entry.getType());
+				statement.setLong(4, entry.getUserId());
+				statement.setString(5, entry.getCategory());
+				return statement;
+			}
+		}, holder);
+
+		long primaryKey = holder.getKey().longValue();
+
+		return primaryKey;
+	}
+
+	@Override
+	public long updateEntry(Entry entry){
+		String queryString1 = "update Entry set Comments=?, CollectionType=?, Category=? where Entry.ID=? and Entry.UserID=?";
+		String queryString2 = "update Recipe set Name=?, Instructions=?, Yield=? where ID=?";
+
+		int result = jdbcTemplate.update(
+			queryString1,
+			entry.getComments(), entry.getType(), entry.getCategory(), entry.getId(), entry.getUserId());
+		
+
+		Long recipeID = jdbcTemplate
+			.queryForObject(
+				"select RecipeID from Entry where ID  = ?",
+				new Object[]{entry.getId()},
+				Long.class);
+
+		result = jdbcTemplate.update(
+			queryString2,
+			entry.getRecipe().getName(), entry.getRecipe().getInstructions(), entry.getRecipe().getYield(), recipeID);
+
+
+		return recipeID;
 	}
 
 	@Override
 	public int deleteById(long id){
+		List<Long> IDs = jdbcTemplate.query(
+			"select RecipeID from Entry where ID  = ?",
+			new Object[]{id},
+			(rs, rowNum) ->
+					rs.getLong("RecipeID")
+		);
+		
+		if(IDs.size() < 1){
+			return -1;
+		}
+
+		long recipeID = IDs.get(0);
+
 		String queryString1 = "delete from Photo where EntryID = ?";
-		String queryString2 = "delete from Ingredient where RecipeID = (select RecipeID from Entry where ID = ?)";
-		String queryString3 = "delete from Recipe where ID = (select RecipeID from Entry where ID = ?";
-		String queryString4 = "delete from Entry where ID = ?";
+		String queryString2 = "delete from Ingredient where RecipeID = ?";
+		String queryString3 = "delete from Entry where ID = ?";
+		String queryString4 = "delete from Recipe where ID = ?";
 
 		int result = -1;
 		result = jdbcTemplate.update(queryString1, id);
-		if(result == 1){
-			result = jdbcTemplate.update(queryString2, id);
-			if(result == 1){
+		if(result >= 0){
+			result = jdbcTemplate.update(queryString2, recipeID);
+			if(result >= 0){
 				result = jdbcTemplate.update(queryString3, id);
-				if(result == 1){
-					result = jdbcTemplate.update(queryString4, id);
+				if(result >= 0){
+					result = jdbcTemplate.update(queryString4, recipeID);
 				}
 			}
 		}

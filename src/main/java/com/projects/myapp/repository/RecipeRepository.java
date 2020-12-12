@@ -1,6 +1,6 @@
 package com.projects.myapp.repository;
 
-import com.projects.myapp.Recipe;
+import com.projects.myapp.objects.Recipe;
 
 public interface RecipeRepository {
 	long saveRecipe(Recipe recipe);

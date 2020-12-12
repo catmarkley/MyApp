@@ -2,7 +2,7 @@ package com.projects.myapp.repository;
 
 import java.util.List;
 
-import com.projects.myapp.Photo;
+import com.projects.myapp.objects.Photo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -28,17 +28,40 @@ public class JdbcPhotoRepository implements PhotoRepository {
 	}
 
 	@Override
-	public int savePhoto(String url, Long entryId) {
-		return jdbcTemplate.update(
-            "insert into Photo (url, entryId) values (?, ?)", 
-            url, entryId);
+	public List<String> deletePhotos(Long entryID){
+		List<String> URLs = jdbcTemplate.query(
+			"select url from Photo where EntryID  = ?",
+			new Object[]{entryID},
+			(rs, rowNum) ->
+					rs.getString("url")
+		);
+
+		int result = jdbcTemplate.update(
+			"delete from Photo where EntryID = ?",
+			entryID);
+
+		return URLs;
 	}
 
 	@Override
-	public int deletePhoto(Long photoId){
+	public int savePhoto(Photo photo) {
 		return jdbcTemplate.update(
+            "insert into Photo (url, entryId) values (?, ?)", 
+            photo.getUrl(), photo.getEntryId());
+	}
+
+	@Override
+	public String deletePhoto(Long photoId){
+		String url = jdbcTemplate.queryForObject(
+			"select url from Photo where id=?", 
+			String.class,
+			photoId);
+	
+		int result = jdbcTemplate.update(
                 "delete from Photo where id = ?",
-                photoId);
+				photoId);
+				
+		return url;
 	}
 	
 }

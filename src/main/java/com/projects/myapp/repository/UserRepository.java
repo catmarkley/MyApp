@@ -3,7 +3,7 @@ package com.projects.myapp.repository;
 import java.util.List;
 import java.util.Optional;
 
-import com.projects.myapp.User;
+import com.projects.myapp.objects.User;
 
 public interface UserRepository {
 

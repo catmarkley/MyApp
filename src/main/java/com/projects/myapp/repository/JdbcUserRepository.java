@@ -1,6 +1,6 @@
 package com.projects.myapp.repository;
 
-import com.projects.myapp.User;
+import com.projects.myapp.objects.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

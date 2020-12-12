@@ -2,15 +2,17 @@ package com.projects.myapp.repository;
 
 import java.util.List;
 
-import com.projects.myapp.Ingredient;
+import com.projects.myapp.objects.Ingredient;
 
 public interface IngredientRepository {
 
 	List<Ingredient> findByRecipe(Long recipeId);
 
-	int saveIngredient(String food, String unit, Float amount, Long recipeId);
+	int saveIngredient(Ingredient ingredient);
 
 	int deleteIngredient(Long id);
+
+	int deleteIngredients(Long recipeID);
 
 	int changeFood(String food, Long id);
 

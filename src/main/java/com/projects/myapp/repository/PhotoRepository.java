@@ -2,14 +2,16 @@ package com.projects.myapp.repository;
 
 import java.util.List;
 
-import com.projects.myapp.Photo;
+import com.projects.myapp.objects.Photo;
 
 public interface PhotoRepository {
 
 	List<Photo> findByEntry(Long entryId);
 
-	int savePhoto(String url, Long entryId);
+	List<String> deletePhotos(Long entryId);
 
-	int deletePhoto(Long photoId);
+	int savePhoto(Photo photo);
+
+	String deletePhoto(Long photoId);
 	
 }
