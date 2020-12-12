@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Recipe</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
+    <script src="/js/scripts/recipe.js"></script>
+</head>
+<body>
+    <div id="model" style="display: none;" th:text="${EntryID}"></div>
+    
+    <!-- Header -->
+    <header id="header" class="alt">
+        <div class="logo"><a href="/logout">Logout</a></div>
+        <a id="edit_recipe_button">Edit Recipe</a>
+        <a id="delete_recipe_button" href="javascript:delete_recipe()">Delete Recipe</a>
+        <a href="#menu" class="toggle"><span>Menu</span></a>
+    </header>
+
+    <!-- Nav -->
+        <nav id="menu">
+            <ul class="links">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/mycookbook">My Cookbook</a></li>
+                <li><a href="#">My Interests</a></li>
+                <li><a href="#">My Travels</a></li>
+                <li><a href="#">My Wines</a></li>
+                <li><a href="#">My Favorites</a></li>
+                <li><a href="#">New Recipe</a></li>
+                <li><a href="#">New Post</a></li>
+                <li><a href="#">Feed</a></li>
+                <li><a href="#">My Profile</a></li>
+            </ul>
+        </nav>
+
+    <section id="banner" class="recipe">
+    </section>
+
+    <section id="one" class="wrapper style3 layout-2">
+        <h2 id="recipe_name" class="text-1">Bolognese Sauce</h2>
+        <p class="text-2">Put the recipe desription here - which are the comments maybe idk</p>
+    </section>
+
+    <section id="two" class="box">
+        <div class="content">
+            <div class="wrapper style3">
+                <div class="row-a topper">
+                    <div class="col-e">
+                        <div><b>Category: </b><span id="recipe_category">category here</span></div>
+                        <div><b>Yield: </b><span id="recipe_yield">yield here</span></div>
+                        <div><b>Total time: </b><span id="recipe_time">time here</span></div>
+                    </div>
+                </div>
+                <div class="row-a">
+                    <div class="col-e ingred">
+                        <h1>Ingredients</h1>
+                        <hr />
+                        <div class="col-inner">
+                            <ul id="recipe_ingredients">
+                                <li>1 whole apple</li>
+                                <li>2 pounds potatoes</li>
+                                <li>4 cups spaetzl</li>
+                                <li>1 tsp salt</li>
+                                <li>1 Tbsp pepper</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-e instruct">
+                        <h1>Instructions</h1>
+                        <hr />
+                        <div class="col-inner">
+                            <p id="recipe_instructions">Do this, this, and this.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-a">
+                    <div class="notes">
+                        <div><b>Notes: </b>
+                            <p class="comments" id="recipe_comments">Comments can go here. Comments can go here. Comments can go here. Comments can go here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="four" class="wrapper style2">
+        <div id="recipe_photos" class="row-c">
+        </div>
+    </section>
+
+<!--<form action="http://localhost:8080/logout">
+    <button>Logout</button>
+</form>-->
+
+
+<!-- Scripts -->
+<script src="/js/common/jquery.min.js"></script>
+<script src="/js/common/jquery.scrolly.min.js"></script>
+<script src="/js/common/jquery.scrollex.min.js"></script>
+<script src="/js/common/skel.min.js"></script>
+<script src="/js/common/util.js"></script>
+<script src="/js/common/main.js"></script>
+
+</body>
+</html>

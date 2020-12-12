@@ -1,0 +1,397 @@
+/* Create four equal columns that floats next to each other */
+.column {
+	float: left;
+	width: 25%;
+	box-sizing: border-box;
+  }
+
+  .column-3 {
+	float: left;
+	width: 33.333%;
+	box-sizing: border-box;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+	content: "";
+	display: table;
+	clear: both;
+  }
+
+  .row {
+	padding: 10px;
+	display: flex;
+	flex: 1 1 100%;
+	max-height: 100%;
+	max-width: 600px;
+	width: 100%;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin-left: 5%;
+	margin-right: 5%;
+  }
+
+  .row-a {
+	display: flex;
+	flex: 1 1 100%;
+	max-height: 100%;
+	max-width: 100%;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin-left: 10%;
+	margin-right: 10%;
+  }
+
+  .row-b {
+	overflow: auto;
+	display: -webkit-inline-box;
+	max-width: 100%;
+	margin-left: 10%;
+	margin-right: 10%;
+  }
+
+  .row-c {
+	width: 100%;
+	margin: 0 0 2.5rem 0;
+	display: -moz-flex;
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+	-moz-flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-moz-align-items: stretch;
+	-webkit-align-items: stretch;
+	-ms-align-items: stretch;
+	align-items: stretch;
+	padding-left: 60px;
+	padding-right: 60px;
+  }
+
+  .col-a {
+	border: 10px solid transparent;
+	min-height: 100px;
+	flex: 0 0 33.33333333%;
+	max-width: 33.33333333%;
+	text-align: left;
+	position: relative;
+	display: flex;
+	background-clip: padding-box;
+	background-origin: padding-box;
+  }
+
+  .col-b {
+	position: relative;
+	display: flex;
+	background-clip: padding-box;
+	background-origin: padding-box;
+	text-align: right;  
+	min-height: 608px;
+	flex: 0 0 46.66666667%;
+	max-width: 46.66666667%;
+	max-height: 100%;
+	border: 10px solid transparent;
+  }
+
+  .col-c {
+	position: relative;
+	background-clip: padding-box;
+	background-origin: padding-box;
+	text-align: right;  
+	max-width: 50%;
+	min-width: 33.333%;
+	border: 10px solid transparent;
+	padding: 30px;
+  }
+
+  .col-d {
+	position: relative;
+	background-clip: padding-box;
+	background-origin: padding-box;
+	text-align: right;  
+	max-width: 50%;
+	border: 10px solid transparent;
+	padding: 30px;
+  }
+
+  .col-e {
+	position: relative;
+	background-clip: padding-box;
+	background-origin: padding-box;
+	text-align: right;  
+	width: 100%;
+	min-width: 20%;
+	padding: 15px;
+  }
+
+  .col-border {
+	border-top: 1px solid;
+	/*border-color: #5AA6ED;*/
+	height: 100%;
+	width: 100%;
+  }
+
+  .comments {
+	color: rgba(153, 153, 153, 1);
+	text-align: center;
+  }
+
+  .col-e.ingred {
+	max-width: 40%;
+  }
+
+  .col-e hr {
+	margin: 8px 10px 8px 10px;
+  }
+  
+  .ingred .col-inner {
+	padding: 30px;
+	display: block;
+  }
+
+  .instruct .col-inner {
+	padding: 30px;
+	display: block;
+  }
+
+  .col-e.instruct {
+	max-width: 60%;
+  }
+
+  .col-e h1 {
+	font-size: 25px;
+	text-align: center;
+	margin: 0;
+  }
+
+  .col-e.topper {
+	text-align: center;
+	margin: 15px;
+	width: -webkit-fill-available;
+  }
+
+  .topper .col-e {
+	display: -webkit-box;
+  }
+
+  .topper .col-e div {
+	margin-left: 20px;
+	margin-right: 20px;
+  }
+
+  .col-e .col-inner {
+	text-align: left;
+  }
+
+  .col-b .col-inner .text-3 {
+	margin: 0 0 0 auto;
+  }
+
+  .col-b .col-inner .text-4 {
+	margin: 0 0 auto 0;
+  }
+
+  .col-c .col-inner {
+	padding: 0;
+  }
+
+  .col-d .col-inner {
+	  padding: 0;
+	  width: 400px;
+  }
+
+  .col-inner {
+	padding: 30px;
+	justify-content: flex-end;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	flex: 1;
+	box-sizing: border-box;
+  }
+
+  .col-inner a {
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	position: relative;
+	text-decoration: none;
+	display: table;
+	border-style: solid;
+	white-space: nowrap;
+	align-self: flex-start;
+	border-width: 0;
+	color: #111111;
+  }
+
+  .col-inner a:hover {
+	color: #db545a !important;
+  }
+
+  .col-inner img {
+	height: 271px;
+	overflow: hidden;
+	object-fit: cover;
+  }
+
+  .img-container img {
+	opacity: 1;
+	display: block;
+	width: 100%;
+	max-height: 100%;
+	transition: .5s ease;
+	backface-visibility: hidden;
+  }
+  
+  .img-container .middle {
+	transition: .5s ease;
+	opacity: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	text-align: center;
+	color: #111111;
+	text-decoration: none;
+	font-size: 16px;
+	padding: 16px 32px;
+  }
+  
+  .img-container:hover img {
+	opacity: 0.3;
+  }
+  
+  .img-container:hover .middle {
+	opacity: 1;
+  }
+
+  .text-4 {
+	  text-align: right;
+  }
+
+  .wrapper.style3.shortened {
+	  min-height: 100px;
+  }
+
+  .wrapper.style3.layout-2 .text-2 {
+	margin-left: calc(((100% - 720px) / 2) + 150px);
+  }
+
+  .recipe {
+	  height: 92px;
+	  display: block;
+	  margin: auto;
+	  overflow: hidden;
+  }
+
+  .notes {
+	width: 100%;
+	text-align: center;
+  }
+
+  .entry {
+	  max-width: 400px;
+	  padding: 1rem !important;
+  }
+
+  .amount {
+	  max-width: 100%;
+	  max-height: 90%;
+	  width: -webkit-fill-available;
+  }
+
+  .unit {
+	max-width: 100%;
+	max-height: 90%;
+  }
+
+  .food {
+	max-width: 100%;
+	max-height: 90%;
+  }
+
+/* Login */
+.login-box {
+	padding: 10% 35% 100% 35%;
+	background: rgba(144, 144, 144, 0.25);
+	height: -webkit-fill-available;
+	border-color: rgba(144, 144, 144, 0.25);
+}
+
+.login-box .content {
+	padding: 3rem;
+	background-color: white;
+}
+
+@media screen and (max-width: 736px) {
+
+	.login-box .content {
+		padding: 2rem;
+	}
+
+}
+
+/* User Management Page */
+.row-user-management {
+	display: flex;
+}
+.col-user-management {
+	width: 50%;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.col-user-management .field {
+	display: flex;
+}
+
+.col-user-management .field > * {
+	margin: 10px;
+	align-self: center;
+}
+
+.user-table {
+	padding: 25px;
+}
+
+.user-table .table {
+	border: 2px solid black;
+}
+
+.user-table-header {
+	border-bottom: 2px solid black;
+	font-weight: bold;
+}
+
+/* Create User Page */
+
+.create_account .field {
+	display: flex;
+}
+
+.create_account .field > * {
+	width: 100%;
+}
+
+input.invalid, textarea.invalid{
+	border: 1px solid rgba(255, 0, 0, 0.75);
+}
+
+input.valid, textarea.valid{
+	border: 1px solid rgba(144, 144, 144, 0.25);
+}
+
+.error{
+	display: none;
+	margin-left: 10px;
+}		
+
+.error_show{
+	display: block;
+	color: red;
+	margin-left: 10px;
+}
+

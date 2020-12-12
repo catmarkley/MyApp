@@ -1,14 +1,37 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>User Registration Page</title>
+	<title>User Registration Page</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
 	<script>
 		$(document).ready(function() {
 			$("#resultSuccess").hide();
 			$("#resultError").hide();
 			$("#create_user").click(function() {
+				var elements = ["#first_name", "username", "password", "passwordConfirm"];
+				error_free = true;
+				for (var selector in elements){
+					var element = $(selector);
+					var valid=element.hasClass("valid");
+					var error_element=$("span", element.parent());
+					console.log("error element: ", error_element);
+					if (!valid){error_element.removeClass("error").addClass("error_show"); error_free=false;}
+					else {error_element.removeClass("error_show").addClass("error");}
+				}
+
+				if (!error_free){
+					console.log("not valid");
+					return;
+				}
+				
+				console.log("valid");
+
 				var usermodel = {
 					first_name : document.getElementById('first_name').value,
 					last_name : document.getElementById('last_name').value,
@@ -16,7 +39,7 @@
 					password : document.getElementById('password').value
 				};
 				var requestJSON = JSON.stringify(usermodel);
-				$.ajax({
+				/*$.ajax({
 					type : "POST",
 					url : "http://localhost:8080/user/create",
 					headers : {
@@ -33,43 +56,85 @@
 						$("#resultSuccess").hide();
 						console.log(data);
 					}
-				});
+				});*/
+			});
+			$("#first_name").on("input", function(){
+				var input=$(this);
+				var is_name=input.val().trim();
+				if(is_name){input.removeClass("invalid").addClass("valid");}
+				else{input.removeClass("valid").addClass("invalid");}
+			});
+			$("#username").on("input", function(){
+				var input=$(this);
+				var is_name=input.val().trim();
+				if(is_name){input.removeClass("invalid").addClass("valid");}
+				else{input.removeClass("valid").addClass("invalid");}
+			});
+			$("#password").on("input", function(){
+				var input=$(this);
+				var is_name=input.val();
+				if(is_name){input.removeClass("invalid").addClass("valid");}
+				else{input.removeClass("valid").addClass("invalid");}
+			});
+			$("#passwordConfirm").on("input", function(){
+				var input=$(this);
+				var is_name=input.val();
+				var password=$("#password").val();
+				if(is_name == password){input.removeClass("invalid").addClass("valid");}
+				else{input.removeClass("valid").addClass("invalid");}
 			});
 		});
 	 </script>
 </head>
 <body>
 
-<div>Create User Page</div>
+<section id="one">
+	<div class="login-box">
+		<div class="content">
+			<h2 class="align-center">Kitchen Cat - Create An Account</h2>
+			<hr />
+			<form id="create_account" class="create_account">
+				<div class="field">
+					<label>First Name:</label>
+					<input type='text' id='first_name' class="valid"/>
+					<span class="error">This field is required</span>
+				</div>
+				<div class="field">
+					<label>Last Name:</label>
+					<input type='text' id='last_name'/>
+				</div>
+				<div class="field">
+					<label>Username:</label>
+					<input type='text' id='username' class="valid"/>
+					<span class="error">This field is required</span>
+				</div>
+				<div class="field">
+					<label>Password:</label>
+					<input type='password' id='password' class="valid"/>
+					<span class="error">This field is required</span>
+				</div>
+				<div class="field">
+					<label>Confirm Password:</label>
+					<input type='password' id='passwordConfirm' class="valid"/>
+					<span class="error">The passwords do not match</span>
+				</div>
+				<div class="field">
+					<p id='resultSuccess'>User created successfully!</p>
+				</div>
+				<div>
+					<p id='resultError'>Error creating user.</p>
+				</div>
+				<div class="field">
+					<a id="create_user" class="button special">Create Account</a>
+				</div>
+				<div class="field">
+					<a href='/login'>Already have an account? Login here.</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
 
-<table>
-	<tr>
-		<td>First Name:</td>
-		<td><input type='text' id='first_name' required/></td>
-	</tr>
-	<tr>
-		<td>Last Name:</td>
-		<td><input type='text' id='last_name'/></td>
-	</tr>
-	<tr>
-		<td>Username:</td>
-		<td><input type='text' id='username' required/></td>
-	</tr>
-	<tr>
-		<td>Password:</td>
-		<td><input type='password' id='password' required/></td>
-		</tr>
-	<tr>
-		<td><button id="create_user">Create</button></td>
-	</tr>
-</table>
-
-<p id='resultSuccess'>User created successfully!</p>
-
-<p id='resultError'>Error creating user.</p>
-
-
-<a href='http://localhost:8080/login'>Already have an account? Login here.</a>
 
 </body>
 </html>

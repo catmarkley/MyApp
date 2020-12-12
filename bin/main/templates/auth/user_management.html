@@ -3,7 +3,12 @@
 <head>
     <title>User Management Page</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
 	<script>
 		$(document).ready(function() {
 			$.get("http://localhost:8080/user", function(data, status){
@@ -11,7 +16,6 @@
 				$.each(data, function (i, item) {
 					row += '<tr><td>' + data[i]['id'] + '</td>';
 					row += '<td>' + data[i]['username'] + '</td>';
-					row += '<td>' + data[i]['password'] + '</td>';
 					row += '<td>' + data[i]['enabled'] + '</td>';
 					row += '<td>' + data[i]['role'] + '</td>';
 					row += '<td>' + data[i]['firstName'] + '</td>';
@@ -173,134 +177,140 @@
 </head>
 <body>
 
-<div>User Administration Page</div>
+<section id="one">
+	<div class="box">
 
+		<h3>User Administration Page</h3>
 
-<p>Disable an account:</p>
-<table>
-	<tr>
-		<td>Username:</td>
-		<td><input type='text' id='disableUsername' required/></td>
-	</tr>
-	<tr>
-		<td><button id="disable">Disable</button></td>
-	</tr>
-</table>
+		<div class="content">
+			<div class="row-user-management">
+				<div class="col-user-management">
+					<h1>Disable an account:</h1>
+					<div class="field">
+						<label>Username:</label>
+						<input type='text' id='disableUsername' required/>
+					</div>
+					<div class="field">
+						<a id="disable" class="button special">Disable</a>
+					</div>
 
-<p class="message" id='resultDisableSuccess'>User disabled successfully!</p>
-<p class="message" id='resultDisableError'>Error disabling user.</p>
+					<h1 class="message" id='resultDisableSuccess'>User disabled successfully!</h1>
+					<h1 class="message" id='resultDisableError'>Error disabling user.</h1>
+				</div>
+				
+				<div class="col-user-management">
+					<h1>Enable an account:</h1>
+					<div class="field">
+						<label>Username:</label>
+						<input type='text' id='enableUsername' required/>
+					</div>
+					<div class="field">
+						<a id="enable" class="button special">Enable</a>
+					</div>
 
-<br><br>
+					<h1 class="message" id='resultEnableSuccess'>User enabled successfully!</h1>
+					<h1 class="message" id='resultEnableError'>Error enabling user.</h1>
+				</div>
 
-<p>Enable an account:</p>
-<table>
-	<tr>
-		<td>Username:</td>
-		<td><input type='text' id='enableUsername' required/></td>
-	</tr>
-	<tr>
-		<td><button id="enable">Enable</button></td>
-	</tr>
-</table>
+			</div>
+			<div class="row-user-management">
 
-<p class="message" id='resultEnableSuccess'>User enabled successfully!</p>
-<p class="message" id='resultEnableError'>Error enabling user.</p>
+				<div class="col-user-management">
+					<h1>Change a user's password:</h1>
+					<div class="field">
+						<label>Username:</label>
+						<input type='text' id='passwordUsername' required/>
+					</div>
+					<div class="field">
+						<label>New Password:</label>
+						<input type='text' id='passwordPassword' required/>
+					</div>
+					<div class="field">
+						<a id="changePassword" class="button special">Change Password</a>
+					</div>
 
-<br><br>
+					<h1 class="message" id='resultPasswordSuccess'>Password changed successfully!</h1>
+					<h1 class="message" id='resultPasswordError'>Error changing password.</h1>
+				</div>
 
-<p>Change a user's password:</p>
-<table>
-	<tr>
-		<td>Username:</td>
-		<td><input type='text' id='passwordUsername' required/></td>
-	</tr>
-	<tr>
-		<td>New Password:</td>
-		<td><input type='text' id='passwordPassword' required/></td>
-	</tr>
-	<tr>
-		<td><button id="changePassword">Change Password</button></td>
-	</tr>
-</table>
+				<div class="col-user-management">
+					<h1>Change a user's first name:</h1>
+					<div class="field">
+						<label>Username:</label>
+						<input type='text' id='firstnameUsername' required/>
+					</div>
+					<div class="field">
+						<label>New First Name:</label>
+						<input type='text' id='firstName' required/>
+					</div>
+					<div class="field">
+						<a id="changeFirstName" class="button special">Change First Name</a>
+					</div>
 
-<p class="message" id='resultPasswordSuccess'>Password changed successfully!</p>
-<p class="message" id='resultPasswordError'>Error changing password.</p>
+					<h1 class="message" id='resultFirstNameSuccess'>First name changed successfully!</h1>
+					<h1 class="message" id='resultFirstNameError'>Error changing first name.</h1>
+				</div>
 
-<br><br>
+			</div>
+			<div class="row-user-management">
 
-<p>Change a user's first name:</p>
-<table>
-	<tr>
-		<td>Username:</td>
-		<td><input type='text' id='firstnameUsername' required/></td>
-	</tr>
-	<tr>
-		<td>New First Name:</td>
-		<td><input type='text' id='firstName' required/></td>
-	</tr>
-	<tr>
-		<td><button id="changeFirstName">Change First Name</button></td>
-	</tr>
-</table>
+				<div class="col-user-management">
+					<h1>Change a user's last name:</h1>
+					<div class="field">
+						<label>Username:</label>
+						<input type='text' id='lastnameUsername' required/>
+					</div>
+					<div class="field">
+						<label>New Last Name:</label>
+						<input type='text' id='lastName' required/>
+					</div>
+					<div class="field">
+						<a id="changeLastName" class="button special">Change Last Name</a>
+					</div>
 
-<p class="message" id='resultFirstNameSuccess'>First name changed successfully!</p>
-<p class="message" id='resultFirstNameError'>Error changing first name.</p>
+					<h1 class="message" id='resultLastNameSuccess'>Last name changed successfully!</h1>
+					<h1 class="message" id='resultLastNameError'>Error changing last name.</h1>
+				</div>
 
-<br><br>
+				<div class="col-user-management">
+					<h1>Change a user's role:</h1>
+					<div class="field">
+						<label>Username:</label>
+						<input type='text' id='roleUsername' required/>
+					</div>
+					<div class="field">
+						<label>New Role:</label>
+						<select id="role" required>
+							<option value="ROLE_USER">USER</option>
+							<option value="ROLE_ADMIN">ADMIN</option>
+						</select>
+					</div>
+					<div class="field">
+						<a id="changeRole" class="button special">Change Role</a>
+					</div>
 
-<p>Change a user's last name:</p>
-<table>
-	<tr>
-		<td>Username:</td>
-		<td><input type='text' id='lastnameUsername' required/></td>
-	</tr>
-	<tr>
-		<td>New Last Name:</td>
-		<td><input type='text' id='lastName' required/></td>
-	</tr>
-	<tr>
-		<td><button id="changeLastName">Change Last Name</button></td>
-	</tr>
-</table>
+					<h1 class="message" id='resultRoleSuccess'>Role changed successfully!</h1>
+					<h1 class="message" id='resultRoleError'>Error changing role.</h1>
+				</div>
+			</div>
+		</div>
 
-<p class="message" id='resultLastNameSuccess'>Last name changed successfully!</p>
-<p class="message" id='resultLastNameError'>Error changing last name.</p>
+		<div class="user-table">
+			<h1>User information:</h1>
+			<table id="userData">
+				<tr class="user-table-header">
+					<td>ID</td>
+					<td>Username</td>
+					<td>Enabled</td>
+					<td>Role</td>
+					<td>First Name</td>
+					<td>Last Name</td>
+				</tr>
+			</table>
+		</div>
 
-
-<p>Change a user's role:</p>
-<table>
-	<tr>
-		<td>Username:</td>
-		<td><input type='text' id='roleUsername' required/></td>
-	</tr>
-	<tr>
-		<td>New Role:
-		<select id="role" required>
-			<option value="ROLE_USER">USER</option>
-			<option value="ROLE_ADMIN">ADMIN</option>
-		</select>
-		</td>
-	</tr>
-	<tr>
-		<td><button id="changeRole">Change Role</button></td>
-	</tr>
-</table>
-
-<p class="message" id='resultRoleSuccess'>Role changed successfully!</p>
-<p class="message" id='resultRoleError'>Error changing role.</p>
-
-User information:
-<table id="userData">
-	<tr>
-		<td>ID</td>
-		<td>Username</td>
-		<td>Password</td>
-		<td>Enabled</td>
-		<td>Role</td>
-		<td>First Name</td>
-		<td>Last Name</td>
-	</tr>
-</table>
+	</div>
+</section>
 
 </body>
 </html>

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Recipe</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/main.css" />
+	<link rel="stylesheet" href="/css/custom.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/js/scriptNewEntry.js"></script>
+    <link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
+</head>
+<body>
+    <div id="model" style="display: none;" th:text="${EntryID}"></div>
+    
+    <!-- Header -->
+    <header id="header" class="alt">
+        <div class="logo"><a href="/logout">Logout</a></div>
+        <a href="#menu" class="toggle"><span>Menu</span></a>
+    </header>
+
+    <!-- Nav -->
+        <nav id="menu">
+            <ul class="links">
+                <li><a href="/home">Home</a></li>
+                <li><a href="/mycookbook">My Cookbook</a></li>
+                <li><a href="#">My Interests</a></li>
+                <li><a href="#">My Travels</a></li>
+                <li><a href="#">My Wines</a></li>
+                <li><a href="#">My Favorites</a></li>
+                <li><a href="#">New Recipe</a></li>
+                <li><a href="#">New Post</a></li>
+                <li><a href="#">Feed</a></li>
+                <li><a href="#">My Profile</a></li>
+            </ul>
+        </nav>
+
+    <section id="banner" class="recipe">
+    </section>
+
+	<section id="one">
+		<div class="box">
+			<div class="content">
+				<h2 class="align-center">New Recipe</h2>
+				<hr />
+				<form id="new_entry_form">
+					<div class="field">
+						<label>Name (of recipe):</label>
+						<input type='text' id='recipeName' required/>
+					</div>
+					<div class="field">
+						<label>Instructions:<label>
+						<input type='text' id='recipeInstructions' required/>
+					</div>
+					<div class="field">
+						<label>Yield:</label>
+						<input type='number' id='recipeYield' required/>
+					</div>
+					<div class="field">
+						<label>Comments:</label>
+						<input type='text' id='entryComments' required/>
+					</div>
+					<div class="field">
+						<label>Collection Type:</label>
+						<div class="select-wrapper">
+							<select name="collection" id="collection">
+								<option value="myCookbook">My Cookbook</option>
+								<option value="myInterests">My Interests</option>
+								<option value="myDislikes">My Dislikes</option>
+							</select>
+						</div>
+					</div>
+					<div class="field">
+						<label>Category:</label>
+						<input type='text' id='entryCategory' required/>
+					</div>
+					<div class="field">
+						<label>Add Ingredients</label>
+						<div class="ingredient"></div>
+						<a class="add_form_field_ingred button default">Add New Ingredient</a>
+					</div>
+					<div class="field">
+						<label>Add Photos</label>
+						<div class="photo"></div>
+						<a class="add_form_field_photo button default">Add Photo</a>
+					</div>
+					<div id="add_new_error">
+					</div>
+					<div class="align-center">
+						<a id="addNewEntry" class="button special">Create Recipe</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</section>
+
+<!-- Scripts -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.scrolly.min.js"></script>
+<script src="/js/jquery.scrollex.min.js"></script>
+<script src="/js/skel.min.js"></script>
+<script src="/js/util.js"></script>
+<script src="/js/main.js"></script>
+
+</body>
+</html>

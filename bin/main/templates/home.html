@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"  
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
+    <script>
+        $(document).ready(function() {
+		});
+    </script>
+</head>
+<body>
+
+<!-- Header -->
+<header id="header" class="alt">
+    <div class="logo"><a href="/logout">Logout</a></div>
+    <a href="#menu" class="toggle"><span>Menu</span></a>
+</header>
+
+<!-- Nav -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/mycookbook">My Cookbook</a></li>
+            <li><a href="#">My Interests</a></li>
+            <li><a href="#">My Travels</a></li>
+            <li><a href="#">My Wines</a></li>
+            <li><a href="#">My Favorites</a></li>
+            <li><a href="#">New Recipe</a></li>
+            <li><a href="#">New Post</a></li>
+            <li><a href="#">Feed</a></li>
+            <li><a href="#">My Profile</a></li>
+        </ul>
+    </nav>
+
+
+<img src="/img/chinatown.jpg" alt="" style="max-height: 500px; max-width: 500px;"/>
+
+<p>This page will be the home page. Either the user's profile or the user's feed, or maybe a mix of the two because I must consider that most users will not have friends or at least not very many of them.</p>
+
+<div class="container-fluid">  
+    <div class="row">  
+        <div class="box col-md-6 col-md-offset-3">  
+            <!--/* displayed if account IS NOT null, indicating that the user IS logged in */-->  
+            <div sec:authorize="isAuthenticated()">  
+                <h1 th:inline="text">Hello, <span sec:authentication="name"></span>!</h1>  
+            </div>  
+                
+        </div>  
+    </div>  
+</div>  
+
+<form action="http://localhost:8080/logout">
+    <button>Logout</button>
+</form>
+
+<!-- Scripts -->
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.scrolly.min.js"></script>
+<script src="js/jquery.scrollex.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/util.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>

@@ -2,42 +2,47 @@
 <html>
 <head>
     <title>Login Page</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/main.css" />
+	<link rel="stylesheet" href="/css/custom.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			
-		});
-	 </script>
+    <link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
 </head>
 <body>
 
-<div>Login Page</div>
-
-<form name='f' action="/login" method='POST'>
-	<table>
-	   <tr>
-		  <td>Username:</td>
-		  <td><input type='text' name='username' value=''></td>
-	   </tr>
-	   <tr>
-		  <td>Password:</td>
-		  <td><input type='password' name='password' /></td>
-	   </tr>
-	   <tr>
-		  <td><input name="submit" type="submit" value="submit" /></td>
-	   </tr>
-	</table>
-</form>
-
-<div th:if="${param.error}">
-	Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-	You have been logged out.
-</div>
-
-<a href='http://localhost:8080/register'>Don't have an account? Create one here.</a>
+<section id="one">
+	<div class="login-box">
+		<div class="content">
+			<h2 class="align-center">Kitchen Cat Login</h2>
+			<hr />
+			<form id="login" action="/login" method="POST">
+				<div class="align-center">
+					<div class="field">
+						<label>Username:</label>
+						<input type='text' name='username' value=''>
+					</div>
+					<div class="field">
+						<label>Password:</label>
+						<input type='password' name='password' />
+					</div>
+					<div class="field">
+						<input type="submit" value="Login" class="button special"/>
+					</div>
+					<div class="field">
+						<a href='/register'>Don't have an account? Create one here.</a>
+					</div>
+					<div th:if="${param.error}">
+						Invalid username and password.
+					</div>
+					<div th:if="${param.logout}">
+						You have been logged out.
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
 
 </body>
 </html>

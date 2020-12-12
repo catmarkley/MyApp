@@ -2,37 +2,220 @@
 <html xmlns:th="http://www.thymeleaf.org"  
 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <title>Home</title>
+    <title>My Cookbook</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-		});
-    </script>
+    <link id="u-page-google-font" rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
 </head>
 <body>
-HELLO - this page will just be like a welcome page with a side bar for navigation. Or maybe like the user's 'feed'
 
-<form action="http://localhost:8080/mycookbook?">
-    <button>Go To My Cookbok</button>
-</form>
+<!-- Header -->
+    <header id="header" class="alt">
+        <div class="logo"><a href="/logout">Logout</a></div>
+        <a href="#menu" class="toggle"><span>Menu</span></a>
+    </header>
 
-    <div class="container-fluid">  
-        <div class="row">  
-            <div class="box col-md-6 col-md-offset-3">  
-      
-                <!--/* displayed if account IS NOT null, indicating that the user IS logged in */-->  
-                <div sec:authorize="isAuthenticated()">  
-                    <h1 th:inline="text">Hello, <span sec:authentication="name"></span>!</h1>  
-                </div>  
-                  
-            </div>  
-        </div>  
-    </div>  
+<!-- Nav -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/mycookbook">My Cookbook</a></li>
+            <li><a href="#">My Interests</a></li>
+            <li><a href="#">My Travels</a></li>
+            <li><a href="#">My Wines</a></li>
+            <li><a href="#">My Favorites</a></li>
+            <li><a href="#">New Recipe</a></li>
+            <li><a href="#">New Post</a></li>
+            <li><a href="#">Feed</a></li>
+            <li><a href="#">My Profile</a></li>
+        </ul>
+    </nav>
 
-<form action="http://localhost:8080/logout">
-    <button>Logout</button>
-</form>
+<section id="banner" class="main">
+    <div class="inner">
+        <h1>Kitchen Cat</h1>
+        <p>And put a description <b>here.</b></p>
+    </div>
+</section>
+
+<section id="one" class="wrapper style3">
+    <h2 class="text-1">Put some sort of fun heading or <b>quote here</b></h2>
+    <p class="text-2">And my website description here!! But a bit larger maybe</p>
+</section>
+
+<hr/>
+<section id="two" class="wrapper style3">
+    <div class="section-1">
+        <div class="shape-1"></div>
+        <h2 class="text-3">My Cookbook</h2>
+        <p class="text-4">Create and add recipes to your very own tested and true recipe book that
+            you can call yours.</p>
+        <div class="layout-1">
+            <div class="row-a">
+                <div class="col-a"></div>
+                <div class="col-a">
+                    <div class="col-inner">
+                        <a href="/mycookbook">Go To Page</a>
+                        <a href="#">Another one</a>
+                        <a href="#">Example link 3</a>
+                        <a href="#">Final link</a>
+                    </div>
+                </div>
+                <div class="col-a">
+                    <div class="col-inner">
+                        <img class="u-expand-resize u-expanded-width u-image u-image-2" src="images/pexels-photo-3681641.jpeg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr/>
+<section id="three" class="wrapper style3">
+    <div class="section-2">
+        <div class="shape-2"></div>
+        <div class="layout-1">
+            <div class="row-a">
+                <div class="col-b">
+                    <div class="col-inner">
+                        <img class="u-expand-resize u-expanded-width u-image u-image-2" src="images/pexels-photo-3681641.jpeg">
+                    </div>
+                </div>
+                <div class="col-b">
+                    <div class="col-inner">
+                        <h2 class="text-3">My Interests</h2>
+                        <p class="text-4">Recipes that you are interested in or inspired by but have not
+                            yet made.</p>
+                        <a href="#">Link 1</a>
+                        <a href="#">Another one</a>
+                        <a href="#">Example link 3</a>
+                        <a href="#">Final link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr/>
+<section id="four" class="wrapper style3">
+    <div class="section-1">
+        <div class="shape-1"></div>
+        <h2 class="text-3">Where I have Been</h2>
+        <p class="text-4">Restaurant type pictures and posts about things you have made or places
+            you have been to</p>
+        <div class="layout-1">
+            <div class="row-a">
+                <div class="col-a"></div>
+                <div class="col-a">
+                    <div class="col-inner">
+                        <a href="#">Link 1</a>
+                        <a href="#">Another one</a>
+                        <a href="#">Example link 3</a>
+                        <a href="#">Final link</a>
+                    </div>
+                </div>
+                <div class="col-a">
+                    <div class="col-inner">
+                        <img class="u-expand-resize u-expanded-width u-image u-image-2" src="images/pexels-photo-3681641.jpeg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr/>
+
+<section id="five" class="wrapper style2">
+    <div class="row-b">
+        <div class="col-d">
+            <div class="col-inner">
+                <h2 class="text-1">See what your friends are making</h2>
+                <p class="text-2">Description of the social media part of this?</p>
+                <a href="#">Explore Friends Page</a>
+                <a href="#">My Profile</a>
+            </div>
+        </div>
+        <div class="col-c">
+            <div class="img-container">
+                <img src="images/2.jpg">
+                <div class="middle">
+                    <a href="#" class="button special">Friend 1</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-c">
+            <div class="img-container">
+                <img src="images/bg.jpg">
+                <div class="middle">
+                    <a href="#" class="button special">Friend 2</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-c">
+            <div class="img-container">
+                <img src="images/pic03.jpg">
+                <div class="middle">
+                    <a href="#" class="button special">Friend 3</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-c">
+            <div class="img-container">
+                <img src="images/2.jpg">
+                <div class="middle">
+                    <a href="#" class="button special">Friend 1</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-c">
+            <div class="img-container">
+                <img src="images/bg.jpg">
+                <div class="middle">
+                    <a href="#" class="button special">Friend 2</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-c">
+            <div class="img-container">
+                <img src="images/pic03.jpg">
+                <div class="middle">
+                    <a href="#" class="button special">Friend 3</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr/>
+
+<!--
+<section id="six" class="wrapper style3">
+    <div class="inner">
+        <header class="align-center">
+            <h2>Go Back To The Landing Page</h2>
+            <a href="/" class="button special">Click Here</a>
+        </header>
+    </div>
+</section>
+-->
+
+<footer id="footer" class="wrapper">
+    <div class="copyright">
+        Created by Catherine Markley
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.scrolly.min.js"></script>
+<script src="js/jquery.scrollex.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/util.js"></script>
+<script src="js/main.js"></script>
 
 </body>
 </html>
