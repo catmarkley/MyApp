@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link id="u-page-google-font" rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
+	<script src="/js/common/validationUser.js"></script>
 	<script src="/js/scripts/userAdmin.js"></script>
 </head>
 <body>
@@ -30,8 +31,8 @@
 						<a id="disable" class="button special">Disable</a>
 					</div>
 
-					<h1 class="message" id='resultDisableSuccess'>User disabled successfully!</h1>
-					<h1 class="message" id='resultDisableError'>Error disabling user.</h1>
+					<h1 class="message" id='disableResultSuccess'>User disabled successfully!</h1>
+					<h1 class="message" id='disableResultError' style='color: red'>Error disabling user.</h1>
 				</div>
 				
 				<div class="col-user-management">
@@ -44,8 +45,8 @@
 						<a id="enable" class="button special">Enable</a>
 					</div>
 
-					<h1 class="message" id='resultEnableSuccess'>User enabled successfully!</h1>
-					<h1 class="message" id='resultEnableError'>Error enabling user.</h1>
+					<h1 class="message" id='enableResultSuccess'>User enabled successfully!</h1>
+					<h1 class="message" id='enableResultError' style='color: red'>Error enabling user.</h1>
 				</div>
 
 			</div>
@@ -62,11 +63,21 @@
 						<input type='text' id='passwordPassword' required/>
 					</div>
 					<div class="field">
+						<span class="error"></span>
+					</div>
+					<div class="field">
+						<label>Confirm Password:</label>
+						<input type='text' id='passwordConfirmPassword' required/>
+					</div>
+					<div class="field">
+						<span class="error"></span>
+					</div>
+					<div class="field">
 						<a id="changePassword" class="button special">Change Password</a>
 					</div>
 
-					<h1 class="message" id='resultPasswordSuccess'>Password changed successfully!</h1>
-					<h1 class="message" id='resultPasswordError'>Error changing password.</h1>
+					<h1 class="message" id='passwordResultSuccess'>Password changed successfully!</h1>
+					<h1 class="message" id='passwordResultError' style='color: red'>Error changing password.</h1>
 				</div>
 
 				<div class="col-user-management">
@@ -77,14 +88,17 @@
 					</div>
 					<div class="field">
 						<label>New First Name:</label>
-						<input type='text' id='firstName' required/>
+						<input type='text' id='firstname' required/>
+					</div>
+					<div class="field">
+						<span class="error"></span>
 					</div>
 					<div class="field">
 						<a id="changeFirstName" class="button special">Change First Name</a>
 					</div>
 
-					<h1 class="message" id='resultFirstNameSuccess'>First name changed successfully!</h1>
-					<h1 class="message" id='resultFirstNameError'>Error changing first name.</h1>
+					<h1 class="message" id='firstNameResultSuccess'>First name changed successfully!</h1>
+					<h1 class="message" id='firstNameResultError' style='color: red'>Error changing first name.</h1>
 				</div>
 
 			</div>
@@ -98,14 +112,17 @@
 					</div>
 					<div class="field">
 						<label>New Last Name:</label>
-						<input type='text' id='lastName' required/>
+						<input type='text' id='lastname' required/>
+					</div>
+					<div class="field">
+						<span class="error"></span>
 					</div>
 					<div class="field">
 						<a id="changeLastName" class="button special">Change Last Name</a>
 					</div>
 
-					<h1 class="message" id='resultLastNameSuccess'>Last name changed successfully!</h1>
-					<h1 class="message" id='resultLastNameError'>Error changing last name.</h1>
+					<h1 class="message" id='lastNameResultSuccess'>Last name changed successfully!</h1>
+					<h1 class="message" id='lastNameResultError' style='color: red'>Error changing last name.</h1>
 				</div>
 
 				<div class="col-user-management">
@@ -125,8 +142,8 @@
 						<a id="changeRole" class="button special">Change Role</a>
 					</div>
 
-					<h1 class="message" id='resultRoleSuccess'>Role changed successfully!</h1>
-					<h1 class="message" id='resultRoleError'>Error changing role.</h1>
+					<h1 class="message" id='roleResultSuccess'>Role changed successfully!</h1>
+					<h1 class="message" id='roleResultError' style='color: red'>Error changing role.</h1>
 				</div>
 			</div>
 		</div>

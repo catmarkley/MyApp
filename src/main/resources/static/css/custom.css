@@ -344,10 +344,6 @@
 	padding-right: 40px;
 }
 
-.col-user-management .field {
-	display: flex;
-}
-
 .col-user-management .field > * {
 	margin: 10px;
 	align-self: center;
@@ -393,5 +389,6 @@ input.valid, textarea.valid{
 	display: block;
 	color: red;
 	margin-left: 10px;
+	text-align: right;
 }
 

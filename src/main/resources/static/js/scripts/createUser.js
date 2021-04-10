@@ -2,23 +2,19 @@ $(document).ready(function() {
 	$("#resultSuccess").hide();
 	$("#resultError").hide();
 	$("#create_user").click(function() {
-		var elements = ["#first_name", "username", "password", "passwordConfirm"];
+		var elements = ["first_name", "last_name", "username", "password", "passwordConfirm"];
 		error_free = true;
-		for (var selector in elements){
-			var element = $(selector);
-			var valid=element.hasClass("valid");
-			var error_element=$("span", element.parent());
-			console.log("error element: ", error_element);
-			if (!valid){error_element.removeClass("error").addClass("error_show"); error_free=false;}
-			else {error_element.removeClass("error_show").addClass("error");}
-		}
+		elements.forEach(function(element){
+			var message = validateElement(element)
+			error_free = error_free && message == null;
+		})
 
 		if (!error_free){
-			console.log("not valid");
+			$("#resultSuccess").hide();
+			$("#resultError").show();
 			return;
 		}
-		
-		console.log("valid");
+		$("#resultError").hide();
 
 		var usermodel = {
 			first_name : document.getElementById('first_name').value,
@@ -27,7 +23,7 @@ $(document).ready(function() {
 			password : document.getElementById('password').value
 		};
 		var requestJSON = JSON.stringify(usermodel);
-		/*$.ajax({
+		$.ajax({
 			type : "POST",
 			url : "http://localhost:8080/user/create",
 			headers : {
@@ -44,31 +40,36 @@ $(document).ready(function() {
 				$("#resultSuccess").hide();
 				console.log(data);
 			}
-		});*/
+		});
 	});
+
 	$("#first_name").on("input", function(){
-		var input=$(this);
-		var is_name=input.val().trim();
-		if(is_name){input.removeClass("invalid").addClass("valid");}
-		else{input.removeClass("valid").addClass("invalid");}
+		var input=$(this).val();
+		var message = validateFirstName(input);
+		displayErrorChange(this, message, "first_name");
 	});
+
+	$("#last_name").on("input", function(){
+		var input=$(this).val();
+		var message = validateLastName(input);
+		displayErrorChange(this, message, "last_name");
+	});
+
 	$("#username").on("input", function(){
-		var input=$(this);
-		var is_name=input.val().trim();
-		if(is_name){input.removeClass("invalid").addClass("valid");}
-		else{input.removeClass("valid").addClass("invalid");}
+		var input=$(this).val();
+		var message = validateUsername(input);
+		displayErrorChange(this, message, "username");
 	});
+
 	$("#password").on("input", function(){
-		var input=$(this);
-		var is_name=input.val();
-		if(is_name){input.removeClass("invalid").addClass("valid");}
-		else{input.removeClass("valid").addClass("invalid");}
+		var input=$(this).val();
+		var message = validatePassword(input);
+		displayErrorChange(this, message, "password");
 	});
+
 	$("#passwordConfirm").on("input", function(){
-		var input=$(this);
-		var is_name=input.val();
-		var password=$("#password").val();
-		if(is_name == password){input.removeClass("invalid").addClass("valid");}
-		else{input.removeClass("valid").addClass("invalid");}
+		var input=$(this).val();
+		var message = validateConfirmPassword(input, $("#password").val());
+		displayErrorChange(this, message, "passwordConfirm");
 	});
 });

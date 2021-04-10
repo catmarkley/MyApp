@@ -1,4 +1,7 @@
 $(document).ready(function() {
+	$("#resultSuccess").hide();
+	$("#resultError").hide();
+
 	var id = $("#model").text();
 	
 	var photos_to_delete = new Set();
@@ -28,12 +31,12 @@ $(document).ready(function() {
 			}
 
 			$.each(ingredients, function (j, ingred) {
-				var amount = $("#ingredient"+(j+1)+"amount");
-				var unit = $("#ingredient"+(j+1)+"unit");
-				var food = $("#ingredient"+(j+1)+"food");
-				amount.val(ingred["amount"]);
-				unit.val(ingred["unit"]);
-				food.val(ingred["food"]);
+				var amount = $("#ingredient"+(j+1)+"amount")[0].children[1];
+				var unit = $("#ingredient"+(j+1)+"unit")[0].children[1];
+				var food = $("#ingredient"+(j+1)+"food")[0].children[1];
+				amount.value = ingred["amount"];
+				unit.value = ingred["unit"];
+				food.value = ingred["food"];
 			});
 
 			// fill instructions
@@ -96,7 +99,25 @@ $(document).ready(function() {
 	});
 
 	$("#saveChanges").click(function() {
-		// first, delete the previous photos and upload the new ones
+
+		// first, validate the entry information
+		var elements = ["recipeName", "recipeInstructions", "recipeYield", "entryComments", "entryCategory", ".ingredient"];
+		error_free = true;
+		elements.forEach(function(element){
+			var message = validateElement(element)
+			error_free = error_free && message == null;
+		})
+
+		if (!error_free){
+			$("#resultSuccess").hide();
+			var errorElement = document.getElementById('resultError');
+			errorElement.innerHTML = "Error creating entry.";
+			$("#resultError").show();
+			return;
+		}
+		$("#resultError").hide();
+
+		// next, delete the previous photos and upload the new ones
 
 		// delete old ones
 		// use the set 'photos_to_delete' and post it to the photo data controller, which will call the method to delete photo by ID in the database
@@ -170,12 +191,12 @@ $(document).ready(function() {
 			photos: photos
 		};
 		$.each($(".ingredient").children(), function(i, data) {
-			var food = data.getElementsByClassName("food")[0].value;
-			var unit = data.getElementsByClassName("unit")[0].value;
-			var amount = data.getElementsByClassName("amount")[0].value;
-			if(food != null){
-				ingredients.push({'food': food, 'unit': unit, 'amount': amount});   
-			}            
+			if(data.id != "") {
+				var food = data.getElementsByClassName("food")[0].value;
+				var unit = data.getElementsByClassName("unit")[0].value;
+				var amount = data.getElementsByClassName("amount")[0].value;
+				ingredients.push({'food': food, 'unit': unit, 'amount': amount}); 
+			}  
 		});
 
 		if(filepaths != null && Array.isArray(filepaths)){
@@ -204,8 +225,9 @@ $(document).ready(function() {
 			error : function(data) {
 				console.log(data);
 		
-				var error_div = $('#save_error');
-				error_div.append('<p>There was an error updating your recipe. Please make sure all fields are filled out correctly.</p>');
+				var errorElement = document.getElementById('resultError');
+				errorElement.innerHTML = "There was an error updating your recipe. Please make sure all fields are filled out correctly";
+				$('#resultError').show();
 
 				// if there is an error, delete the uploaded files
 				if(filepaths != null){
@@ -232,32 +254,74 @@ $(document).ready(function() {
 		});
 	});
 
-	var wrapper_ingred = $(".ingredient");
-	var add_button_ingred = $(".add_form_field_ingred");
-	var wrapper_photo = $(".photo");
-	var add_button_photo = $(".add_form_field_photo");
+	$("#recipeName").on("input", function(){
+		var input=$(this).val();
+		var message = validateRecipeName(input);
+		displayErrorChange(this, message, "recipeName");
+	});
+
+	$("#recipeInstructions").on("input", function(){
+		var input=$(this).val();
+		var message = validateInstructions(input);
+		displayErrorChange(this, message, "recipeInstructions");
+	});
+
+	$("#recipeYield").on("input", function(){
+		var input=$(this).val();
+		var message = validateYield(input);
+		displayErrorChange(this, message, "recipeYield");
+	});
+
+	$("#entryComments").on("input", function(){
+		var input=$(this).val();
+		var message = validateComments(input);
+		displayErrorChange(this, message, "entryComments");
+	});
+
+	$("#entryCategory").on("input", function(){
+		var input=$(this).val();
+		var message = validateCategory(input);
+		displayErrorChange(this, message, "entryCategory");
+	});
 
 	var x = 0;
 	var y = 0;
 
-	$(add_button_ingred).click(function() {
-		x++;
-		$(wrapper_ingred).append('<div id="ingredient'+x+'" class="row"><div class="column"><label>Amount:</label><input type="number" id="ingredient'+x+'amount" class="amount"></div><div class="column"><label>Unit:</label><input type="text" id="ingredient'+x+'unit" class="unit"></div><div class="column"><label>Food:</label><input type="text" id="ingredient'+x+'food" class="food"></div><div class="column"><label><br></label><a class="delete_form_field_ingred button default">Delete Ingredient</a></div></div>');
+	$(".add_form_field_ingred").click(function() {
+		var htmlStr = add_ingredient_field(++x);
+		$(".ingredient").append(htmlStr);
 	});
 
-	$(wrapper_ingred).on("click", ".delete_form_field_ingred", function(event) {
+	$(".ingredient").on("click", ".delete_form_field_ingred", function(event) {
 		var element = event.originalEvent.srcElement.parentElement.parentElement;
 		element.remove();
+	})
+
+	$(".add_form_field_photo").click(function() {
+		var htmlStr = add_photo_field(++y);
+		$(".photo").append(htmlStr);
 	});
 
-	$(add_button_photo).click(function() {
-		y++;
-		$(wrapper_photo).append('<div id="photo'+y+'" class="row"><div class="column-3"><input type="file" name="file" id="file" class="file"></div><div class="column"><a class="delete_form_field_photo button default">Delete Photo</a></div></div>');
-	});
-
-	$(wrapper_photo).on("click", ".delete_form_field_photo", function(event) {
+	$(".photo").on("click", ".delete_form_field_photo", function(event) {
 		var element = event.originalEvent.srcElement.parentElement.parentElement;
 		element.remove();
-	});
-
+	})
 });
+
+function amountOnInput(element, id){
+	var input=$(element).val();
+	var message = validateIngredientAmount(input);
+	displayErrorChange(element, message, id);
+}
+
+function unitOnInput(element, id){
+	var input=$(element).val();
+	var message = validateIngredientUnit(input);
+	displayErrorChange(element, message, id);
+}
+
+function foodOnInput(element, id){
+	var input=$(element).val();
+	var message = validateIngredientFood(input);
+	displayErrorChange(element, message, id);
+}

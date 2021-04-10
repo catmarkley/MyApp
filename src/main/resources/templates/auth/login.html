@@ -32,7 +32,7 @@
 					<div class="field">
 						<a href='/register'>Don't have an account? Create one here.</a>
 					</div>
-					<div th:if="${param.error}">
+					<div th:if="${param.error}" style='color: red'>
 						Invalid username and password.
 					</div>
 					<div th:if="${param.logout}">

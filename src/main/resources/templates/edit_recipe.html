@@ -7,7 +7,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <link rel="stylesheet" href="/css/main.css" />
 	<link rel="stylesheet" href="/css/custom.css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="/js/scripts/newEntry.js"></script>
+	<script src="/js/common/ingredientForm.js"></script>
+	<script src="/js/common/validationRecipe.js"></script>
 	<script src="/js/scripts/editRecipe.js"></script>
     <link id="u-page-google-font" rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
@@ -51,16 +52,28 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 						<input type='text' id='recipeName' required/>
 					</div>
 					<div class="field">
+						<span class="error"></span>
+					</div>
+					<div class="field">
 						<label>Instructions:<label>
 						<input type='text' id='recipeInstructions' required/>
 					</div>
 					<div class="field">
+						<span class="error"></span>
+					</div>
+					<div class="field">
 						<label>Yield:</label>
-						<input type='number' id='recipeYield' required/>
+						<input type='text' id='recipeYield' required/>
+					</div>
+					<div class="field">
+						<span class="error"></span>
 					</div>
 					<div class="field">
 						<label>Comments:</label>
 						<input type='text' id='entryComments' required/>
+					</div>
+					<div class="field">
+						<span class="error"></span>
 					</div>
 					<div class="field">
 						<label>Collection Type:</label>
@@ -77,6 +90,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 						<input type='text' id='entryCategory' required/>
 					</div>
 					<div class="field">
+						<span class="error"></span>
+					</div>
+					<div class="field">
 						<label>Add Ingredients</label>
 						<div id="recipeIngredient" class="ingredient"></div>
 						<a class="add_form_field_ingred button default">Add New Ingredient</a>
@@ -88,11 +104,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 						<div id="new_entry_photos" class="photo"></div>
 						<a class="add_form_field_photo button default">Add Photo</a>
 					</div>
-					<div id="save_error">
-					</div>
 					<div class="align-center">
 						<a id="saveChanges" class="button special">Save</a>
 					</div>
+					<h1 id='resultSuccess'>Entry created successfully!</h1>
+					<h1 id='resultError' style='color: red'>Error creating entry.</h1>
 				</form>
 			</div>
 		</div>

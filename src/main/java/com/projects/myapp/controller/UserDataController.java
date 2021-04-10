@@ -79,7 +79,7 @@ public class UserDataController {
 		return new ResponseEntity<>("There was an issue", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@RequestMapping(value = "/user/changePassword", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/password", method = RequestMethod.POST)
 	public ResponseEntity<Object> changeUserPassword(@RequestBody String jsonString) throws ParseException {
 		JSONObject obj = (JSONObject) new JSONParser().parse(jsonString);
 		String username = obj.get("username").toString();
@@ -95,7 +95,7 @@ public class UserDataController {
 		return new ResponseEntity<>("There was an issue", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@RequestMapping(value = "/user/changeFirstName", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/firstName", method = RequestMethod.POST)
 	public ResponseEntity<Object> changeUserFirstName(@RequestBody String jsonString) throws ParseException {
 		JSONObject obj = (JSONObject) new JSONParser().parse(jsonString);
 		String username = obj.get("username").toString();
@@ -110,7 +110,7 @@ public class UserDataController {
 		return new ResponseEntity<>("There was an issue", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@RequestMapping(value = "/user/changeLastName", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/lastName", method = RequestMethod.POST)
 	public ResponseEntity<Object> changeUserLastName(@RequestBody String jsonString) throws ParseException {
 		JSONObject obj = (JSONObject) new JSONParser().parse(jsonString);
 		String username = obj.get("username").toString();
@@ -125,7 +125,7 @@ public class UserDataController {
 		return new ResponseEntity<>("There was an issue", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@RequestMapping(value = "/user/changeRole", method = RequestMethod.POST)
+	@RequestMapping(value = "/user/role", method = RequestMethod.POST)
 	public ResponseEntity<Object> changeUserRole(@RequestBody String jsonString) throws ParseException {
 		JSONObject obj = (JSONObject) new JSONParser().parse(jsonString);
 		String username = obj.get("username").toString();
